@@ -31,3 +31,54 @@ model User {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 }
+
+model Movie {
+  id         String        @id @default(cuid())
+  userId     String
+  tmdbId     Int
+  title      String
+  releaseYear Int?
+  posterPath String?
+  genres     String[]
+  runtime    Int?
+  tmdbRating Float?
+  userRating Int?
+  note       String?
+  watchedAt  DateTime      @default(now())
+  createdAt  DateTime      @default(now())
+  user       TelegramUser? @relation(fields: [userId], references: [clerkUserId])
+
+  @@index([userId, watchedAt(sort: Desc)])
+  @@index([userId, tmdbId])
+}
+
+model TelegramUser {
+  id               String   @id @default(cuid())
+  clerkUserId      String   @unique
+  telegramId       String   @unique
+  telegramUsername String?
+  linkedAt         DateTime @default(now())
+  movies           Movie[]
+}
+
+model PendingLink {
+  id               String   @id @default(cuid())
+  code             String   @unique
+  telegramId       String
+  telegramUsername String?
+  expiresAt        DateTime
+  createdAt        DateTime @default(now())
+
+  @@index([telegramId, expiresAt])
+}
+
+model TasteProfile {
+  id            String   @id @default(cuid())
+  clerkUserId   String   @unique
+  topGenres     Json
+  avgRating     Float?
+  totalWatched  Int      @default(0)
+  lastInsight   Json?
+  lastInsightAt DateTime?
+  updatedAt     DateTime @updatedAt
+}

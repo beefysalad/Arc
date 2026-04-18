@@ -3,15 +3,15 @@ services:
     image: postgres:16-alpine
     restart: unless-stopped
     environment:
-      POSTGRES_DB: nexion
-      POSTGRES_USER: nexion
-      POSTGRES_PASSWORD: nexion
+      POSTGRES_DB: arc
+      POSTGRES_USER: arc
+      POSTGRES_PASSWORD: arc
     ports:
       - '5433:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U nexion -d nexion']
+      test: ['CMD-SHELL', 'pg_isready -U arc -d arc']
       interval: 5s
       timeout: 5s
       retries: 20
@@ -20,14 +20,35 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        DATABASE_URL: postgresql://arc:arc@db:5432/arc
+        NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:-pk_test_replace_me}
+        CLERK_SECRET_KEY: ${CLERK_SECRET_KEY:-sk_test_replace_me}
+        CLERK_WEBHOOK_SIGNING_SECRET: ${CLERK_WEBHOOK_SIGNING_SECRET:-whsec_replace_me}
+        NEXT_PUBLIC_CLERK_SIGN_IN_URL: ${NEXT_PUBLIC_CLERK_SIGN_IN_URL:-/login}
+        NEXT_PUBLIC_CLERK_SIGN_UP_URL: ${NEXT_PUBLIC_CLERK_SIGN_UP_URL:-/register}
+        NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL: ${NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL:-/dashboard}
+        NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL: ${NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL:-/dashboard}
+        TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-replace_me}
+        TMDB_API_KEY: ${TMDB_API_KEY:-replace_me}
+        GEMINI_API_KEY: ${GEMINI_API_KEY:-replace_me}
+        CRON_SECRET: ${CRON_SECRET:-replace_me}
     depends_on:
       db:
         condition: service_healthy
     environment:
-      DATABASE_URL: postgresql://nexion:nexion@db:5432/nexion
+      DATABASE_URL: postgresql://arc:arc@db:5432/arc
       NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:-pk_test_replace_me}
       CLERK_SECRET_KEY: ${CLERK_SECRET_KEY:-sk_test_replace_me}
       CLERK_WEBHOOK_SIGNING_SECRET: ${CLERK_WEBHOOK_SIGNING_SECRET:-whsec_replace_me}
+      NEXT_PUBLIC_CLERK_SIGN_IN_URL: ${NEXT_PUBLIC_CLERK_SIGN_IN_URL:-/login}
+      NEXT_PUBLIC_CLERK_SIGN_UP_URL: ${NEXT_PUBLIC_CLERK_SIGN_UP_URL:-/register}
+      NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL: ${NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL:-/dashboard}
+      NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL: ${NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL:-/dashboard}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-replace_me}
+      TMDB_API_KEY: ${TMDB_API_KEY:-replace_me}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-replace_me}
+      CRON_SECRET: ${CRON_SECRET:-replace_me}
       NODE_ENV: production
       PORT: 3000
     ports:
