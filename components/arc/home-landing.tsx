@@ -8,7 +8,6 @@ import {
   MessageSquareQuote,
   Radar,
   Sparkles,
-  Telescope,
 } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
@@ -60,6 +59,12 @@ const steps = [
   'Track patterns, revisit notes, and let Arc sharpen your next pick.',
 ]
 
+const proof = [
+  { label: 'Bot-first logging', value: '/log /rate /search' },
+  { label: 'Personal history', value: 'posters, notes, ratings' },
+  { label: 'Taste feedback', value: 'stats, insights, weekly digests' },
+]
+
 export function HomeLanding({ isSignedIn }: { isSignedIn: boolean }) {
   return (
     <main className="min-h-screen overflow-hidden px-6 py-14 sm:py-20">
@@ -74,32 +79,35 @@ export function HomeLanding({ isSignedIn }: { isSignedIn: boolean }) {
             variants={item}
             className="arc-panel arc-grid relative overflow-hidden p-7 sm:p-9"
           >
+            <div className="absolute inset-x-0 top-0 h-1 bg-primary" />
             <div className="relative">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/7 px-4 py-1.5 text-xs uppercase tracking-[0.35em] text-muted-foreground">
+              <div className="arc-chip">
                 <Clapperboard className="size-3.5" />
                 Arc
                 <span className="h-1 w-1 rounded-full bg-primary" />
-                Movie tracking
+                Movie system
               </div>
 
-              <h1 className="mt-7 max-w-4xl font-[family-name:var(--font-display)] text-5xl leading-none tracking-tight sm:text-7xl">
-                Your movie life,
+              <h1 className="mt-7 max-w-5xl font-[family-name:var(--font-display)] text-5xl leading-[0.9] tracking-tight sm:text-7xl">
+                A harder,
                 <br />
-                staged like it matters.
+                cleaner home
+                <br />
+                for what you watch.
               </h1>
 
               <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
-                Arc keeps the front door frictionless with Telegram, then turns your history into a cinematic dashboard for ratings, notes, stats, and sharp AI reads grounded in what you actually watch.
+                Arc keeps the front door fast with Telegram, then turns your watch history into a sharp black-and-gold control room for ratings, notes, stats, and recommendations grounded in your real behavior.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
-                <Button asChild size="lg" className="group rounded-full px-6">
+                <Button asChild size="lg" className="group rounded-full px-6 font-semibold">
                   <Link href={isSignedIn ? '/dashboard' : '/login'}>
                     {isSignedIn ? 'Open dashboard' : 'Sign in to Arc'}
                     <ArrowRight className="transition-transform group-hover:translate-x-0.5" />
                   </Link>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="rounded-full px-6">
+                <Button asChild size="lg" variant="outline" className="rounded-full border-white/12 bg-[#111111] px-6">
                   <Link href="/dashboard/settings">Connect Telegram</Link>
                 </Button>
               </div>
@@ -108,17 +116,17 @@ export function HomeLanding({ isSignedIn }: { isSignedIn: boolean }) {
 
           <motion.div variants={item} className="grid gap-6">
             <div className="arc-panel relative overflow-hidden p-6">
-              <div className="absolute inset-x-0 top-0 h-px bg-primary/30" />
+              <div className="absolute inset-x-0 top-0 h-1 bg-primary" />
               <div className="relative">
                 <p className="text-xs uppercase tracking-[0.32em] text-muted-foreground">
-                  How it flows
+                  Command board
                 </p>
                 <div className="mt-5 space-y-3">
                   {steps.map((step, index) => (
                     <motion.div
                       key={step}
                       variants={item}
-                      className="flex gap-4 rounded-[1.5rem] border border-white/10 bg-white/6 p-4"
+                      className="flex gap-4 rounded-[1.35rem] border border-white/10 bg-black/30 p-4"
                     >
                       <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-medium text-primary-foreground">
                         {index + 1}
@@ -132,19 +140,16 @@ export function HomeLanding({ isSignedIn }: { isSignedIn: boolean }) {
 
             <motion.div
               variants={item}
-              className="arc-panel flex items-center justify-between gap-4 p-6"
+              className="grid gap-4 sm:grid-cols-3"
             >
-              <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                  Weekly pulse
-                </p>
-                <p className="mt-3 max-w-xs text-lg leading-8">
-                  Digests, stats, and insight pages keep your taste legible over time.
-                </p>
-              </div>
-              <div className="flex size-14 items-center justify-center rounded-2xl border border-primary/30 bg-primary/10">
-                <Telescope className="size-6 text-primary" />
-              </div>
+              {proof.map((item) => (
+                <div key={item.label} className="arc-panel p-5">
+                  <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+                    {item.label}
+                  </p>
+                  <p className="mt-3 text-base leading-7">{item.value}</p>
+                </div>
+              ))}
             </motion.div>
           </motion.div>
         </section>

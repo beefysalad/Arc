@@ -28,19 +28,20 @@ export function PageIntro({
         className
       )}
     >
+      <div className="absolute inset-x-0 top-0 h-1 bg-primary" />
       <div className="relative flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
         <div className="max-w-3xl">
-          <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground">
+          <p className="arc-chip">
             {eyebrow}
           </p>
-          <h1 className="mt-4 max-w-3xl font-[family-name:var(--font-display)] text-4xl leading-none tracking-tight sm:text-5xl lg:text-6xl">
+          <h1 className="mt-5 max-w-4xl font-[family-name:var(--font-display)] text-4xl leading-[0.92] tracking-tight sm:text-6xl lg:text-7xl">
             {title}
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">
             {description}
           </p>
         </div>
-        {aside ? <div className="relative lg:max-w-sm">{aside}</div> : null}
+        {aside ? <div className="relative lg:max-w-sm lg:min-w-[280px]">{aside}</div> : null}
       </div>
     </motion.section>
   )

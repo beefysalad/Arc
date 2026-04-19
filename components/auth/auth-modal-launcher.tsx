@@ -44,8 +44,7 @@ export function AuthModalLauncher({ mode }: AuthModalLauncherProps) {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-4 selection:bg-primary selection:text-black">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      </div>
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:32px_32px]" />
 
       <div className="animate-in fade-in slide-in-from-bottom-4 relative w-full max-w-[440px] duration-1000">
         <div className="mb-8 text-center">
@@ -56,13 +55,14 @@ export function AuthModalLauncher({ mode }: AuthModalLauncherProps) {
             <ArrowRight className="size-4 rotate-180 transition-transform group-hover:-translate-x-1" />
             Back to home
           </Link>
-          <h1 className="mt-4 text-4xl font-bold tracking-tight">{title}</h1>
+          <h1 className="mt-4 font-[family-name:var(--font-display)] text-5xl tracking-tight">{title}</h1>
           <p className="mt-3 text-sm text-zinc-500 dark:text-neutral-400">
             {description}
           </p>
         </div>
 
-        <div className="arc-panel p-8 text-center">
+        <div className="arc-panel relative overflow-hidden p-8 text-center">
+          <div className="absolute inset-x-0 top-0 h-1 bg-primary" />
           <p className="mb-6 text-sm text-zinc-600 dark:text-neutral-400">
             If the modal did not open automatically, launch it again below.
           </p>

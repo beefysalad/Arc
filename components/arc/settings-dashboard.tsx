@@ -23,6 +23,12 @@ type ConnectValues = {
   code: string
 }
 
+const steps = [
+  'Register the webhook from inside Arc.',
+  'Open your bot in Telegram and send /start.',
+  'Paste the six-digit code here once and you are done.',
+]
+
 export function SettingsDashboard() {
   const { data, isLoading } = useTelegramConnection()
   const connectTelegram = useConnectTelegram()
@@ -63,21 +69,17 @@ export function SettingsDashboard() {
     <motion.div className="space-y-8" variants={stagger} initial="hidden" animate="show">
       <PageIntro
         eyebrow="Arc Settings"
-        title="Connect the bot once, then let the rest stay invisible."
-        description="Arc keeps the Telegram setup lightweight: register the webhook from inside the app, send /start in chat, and paste the six-digit code here to link everything together."
+        title="Connection should feel like a one-time setup, not a side quest."
+        description="This page is now a clearer command center for the Telegram link: status on the left, setup path in the middle, and actions on the right."
         aside={
           <div className="grid gap-3">
             <StatusMiniCard label="Telegram" value={linkedLabel} icon={Bot} />
-            <StatusMiniCard
-              label="Webhook"
-              value="Managed in-app"
-              icon={RadioTower}
-            />
+            <StatusMiniCard label="Webhook" value="Managed in-app" icon={RadioTower} />
           </div>
         }
       />
 
-      <motion.section variants={stagger} className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+      <motion.section variants={stagger} className="grid gap-6 xl:grid-cols-[0.75fr_0.7fr_1.05fr]">
         <motion.div variants={fadeUp}>
           <Card className="arc-panel h-full p-6">
             <div className="flex items-center gap-3">
@@ -85,33 +87,45 @@ export function SettingsDashboard() {
                 <ShieldCheck className="size-5 text-primary" />
               </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Connection status</p>
+                <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">Status</p>
                 <h2 className="font-[family-name:var(--font-display)] text-3xl tracking-tight">
-                  {data.linked ? 'Telegram connected' : 'Connect Telegram to Arc'}
+                  {data.linked ? 'Already connected' : 'Waiting for connection'}
                 </h2>
               </div>
             </div>
 
-            {data.linked ? (
-              <p className="mt-6 max-w-lg text-base leading-8 text-muted-foreground">
-                Arc is already linked. New logs and ratings from Telegram will keep flowing into your dashboard automatically.
-              </p>
-            ) : (
-              <ol className="mt-6 space-y-4 text-sm leading-7 text-muted-foreground">
-                <li>1. Open your Arc bot in Telegram.</li>
-                <li>2. Send <code>/start</code> and copy the six-digit code.</li>
-                <li>3. Paste it here once, and the dashboard will stay linked after that.</li>
-              </ol>
-            )}
+            <p className="mt-6 text-base leading-8 text-muted-foreground">
+              {data.linked
+                ? 'Arc is already linked. Logs and ratings from Telegram will keep syncing into the dashboard automatically.'
+                : 'The bot is ready. Once you register the webhook and send /start, Arc will hand you the code needed to finish the link.'}
+            </p>
+          </Card>
+        </motion.div>
+
+        <motion.div variants={fadeUp}>
+          <Card className="arc-panel h-full p-6">
+            <p className="arc-chip">Setup flow</p>
+            <div className="mt-6 grid gap-4">
+              {steps.map((step, index) => (
+                <div key={step} className="rounded-[1.35rem] border border-white/10 bg-black/25 p-4">
+                  <div className="flex items-start gap-4">
+                    <div className="flex size-10 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-sm font-semibold text-primary">
+                      {index + 1}
+                    </div>
+                    <p className="text-sm leading-7">{step}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </Card>
         </motion.div>
 
         <motion.div variants={fadeUp}>
           <Card className="arc-panel p-6">
-            <div className="rounded-[1.6rem] border border-white/10 bg-white/7 p-5">
+            <div className="rounded-[1.45rem] border border-white/10 bg-black/25 p-5">
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
+                  <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
                     Webhook registration
                   </p>
                   <p className="mt-2 max-w-lg text-sm leading-7 text-muted-foreground">
@@ -121,7 +135,7 @@ export function SettingsDashboard() {
                 <Button
                   type="button"
                   variant="outline"
-                  className="rounded-full"
+                  className="rounded-full border-white/12 bg-[#111111]"
                   onClick={handleRegisterWebhook}
                   disabled={registerTelegramWebhook.isPending}
                 >
@@ -136,7 +150,7 @@ export function SettingsDashboard() {
                 <Input
                   id="code"
                   placeholder="123456"
-                  className="h-11 rounded-2xl border-white/10 bg-white/8"
+                  className="h-11 rounded-2xl border-white/10 bg-black/25"
                   {...form.register('code')}
                 />
                 {form.formState.errors.code ? (
@@ -149,13 +163,13 @@ export function SettingsDashboard() {
               </Button>
             </form>
 
-            <div className="mt-6 rounded-[1.5rem] border border-white/10 bg-white/6 p-4">
+            <div className="mt-6 rounded-[1.35rem] border border-white/10 bg-black/25 p-4">
               <div className="flex items-start gap-3">
-                <div className="mt-1 flex size-9 items-center justify-center rounded-2xl bg-white/8">
-                  <Link2 className="size-4" />
+                <div className="mt-1 flex size-9 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10">
+                  <Link2 className="size-4 text-primary" />
                 </div>
                 <p className="text-sm leading-7 text-muted-foreground">
-                  Once the webhook is registered, head back to Telegram and send <code>/start</code>. Arc will reply with the link code you need here.
+                  Once the webhook is registered, go to Telegram and send <code>/start</code>. Arc will reply with the exact code you need here.
                 </p>
               </div>
             </div>
@@ -176,10 +190,10 @@ function StatusMiniCard({
   icon: typeof Bot
 }) {
   return (
-    <div className="rounded-[1.5rem] border border-white/10 bg-white/7 p-4">
+    <div className="rounded-[1.5rem] border border-white/10 bg-black/25 p-4">
       <div className="flex items-center justify-between gap-3">
-        <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">{label}</p>
-        <Icon className="size-4 text-muted-foreground" />
+        <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">{label}</p>
+        <Icon className="size-4 text-primary" />
       </div>
       <p className="mt-3 text-sm leading-6">{value}</p>
     </div>

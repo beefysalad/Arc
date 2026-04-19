@@ -34,12 +34,12 @@ export function InsightsDashboard() {
     <motion.div className="space-y-8" variants={stagger} initial="hidden" animate="show">
       <PageIntro
         eyebrow="Arc Insights"
-        title="A sharper read on your taste than a year-end recap ever gives you."
-        description="These reads stay tied to your actual history, so they land more like a smart friend spotting a pattern than a generic AI horoscope."
+        title="Not a horoscope. A sharper read on the way you actually choose."
+        description="This page should feel like a taste memo written from your own history: what you favor, what you avoid, and what blind spot keeps showing up."
         aside={
-          <div className="rounded-[1.75rem] border border-white/10 bg-white/8 p-5">
-            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Insight cache</p>
-            <p className="mt-3 font-[family-name:var(--font-display)] text-3xl leading-none tracking-tight">
+          <div className="arc-panel p-5">
+            <p className="arc-chip">Insight cache</p>
+            <p className="mt-4 font-[family-name:var(--font-display)] text-4xl leading-none tracking-tight">
               {canRefresh ? 'Ready' : `${hoursRemaining}h`}
             </p>
             <Button
@@ -53,34 +53,32 @@ export function InsightsDashboard() {
         }
       />
 
-      <motion.section variants={fadeUp}>
-        <Card className="arc-panel p-6 sm:p-7">
-          <div className="flex items-center gap-3">
-            <div className="flex size-11 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10">
-              <MessageSquareQuote className="size-5 text-primary" />
+      <motion.section variants={stagger} className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+        <motion.div variants={fadeUp} className="grid gap-6">
+          <Card className="arc-panel p-6 sm:p-7">
+            <div className="flex items-center gap-3">
+              <div className="flex size-11 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10">
+                <MessageSquareQuote className="size-5 text-primary" />
+              </div>
+              <div>
+                <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">Summary</p>
+                <h2 className="font-[family-name:var(--font-display)] text-3xl tracking-tight">
+                  Your taste in one pass
+                </h2>
+              </div>
             </div>
-            <div>
-              <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Your taste in a nutshell</p>
-              <h2 className="font-[family-name:var(--font-display)] text-3xl tracking-tight">
-                Summary
-              </h2>
-            </div>
-          </div>
-          <p className="mt-6 max-w-4xl text-lg leading-8 text-foreground/90">{data.summary}</p>
-        </Card>
-      </motion.section>
+            <p className="mt-6 max-w-4xl text-lg leading-8 text-foreground/90">{data.summary}</p>
+          </Card>
 
-      <motion.section variants={stagger} className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-        <motion.div variants={fadeUp}>
-          <Card className="arc-panel h-full p-6">
+          <Card className="arc-panel p-6">
             <div className="flex items-center gap-3">
               <div className="flex size-11 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10">
                 <ScanSearch className="size-5 text-primary" />
               </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Blind spot</p>
+                <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">Blind spot</p>
                 <h2 className="font-[family-name:var(--font-display)] text-3xl tracking-tight">
-                  What you are strangely missing
+                  What you keep overlooking
                 </h2>
               </div>
             </div>
@@ -88,41 +86,49 @@ export function InsightsDashboard() {
           </Card>
         </motion.div>
 
-        <motion.div variants={stagger} className="grid gap-4 md:grid-cols-3">
-          {data.patterns.map((pattern, index) => (
-            <motion.div key={pattern} variants={fadeUp} whileHover={{ y: -6 }}>
-              <Card className="arc-panel h-full p-5">
-                <div className="flex size-10 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10">
-                  {index === 0 ? (
-                    <Sparkles className="size-4 text-primary" />
-                  ) : index === 1 ? (
-                    <Lightbulb className="size-4 text-primary" />
-                  ) : (
-                    <Compass className="size-4 text-primary" />
-                  )}
-                </div>
-                <p className="mt-5 text-base leading-7">{pattern}</p>
-              </Card>
-            </motion.div>
-          ))}
-        </motion.div>
-      </motion.section>
+        <motion.div variants={stagger} className="grid gap-6">
+          <motion.div variants={fadeUp}>
+            <Card className="arc-panel p-6">
+              <p className="arc-chip">Pattern board</p>
+              <div className="mt-6 grid gap-4">
+                {data.patterns.map((pattern, index) => (
+                  <div
+                    key={pattern}
+                    className="rounded-[1.35rem] border border-white/10 bg-black/25 p-4"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="flex size-10 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-sm font-semibold text-primary">
+                        {index + 1}
+                      </div>
+                      <div>
+                        <div className="flex size-9 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10">
+                          {index === 0 ? (
+                            <Sparkles className="size-4 text-primary" />
+                          ) : index === 1 ? (
+                            <Lightbulb className="size-4 text-primary" />
+                          ) : (
+                            <Compass className="size-4 text-primary" />
+                          )}
+                        </div>
+                        <p className="mt-3 text-base leading-7">{pattern}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          </motion.div>
 
-      <motion.section variants={fadeUp}>
-        <Card className="arc-panel p-6 sm:p-7">
-          <div className="flex items-center gap-3">
-            <div className="flex size-11 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10">
-              <Compass className="size-5 text-primary" />
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Next watch</p>
-              <h2 className="font-[family-name:var(--font-display)] text-3xl tracking-tight">
+          <motion.div variants={fadeUp}>
+            <Card className="arc-panel p-6 sm:p-7">
+              <p className="arc-chip">Next watch</p>
+              <h2 className="mt-4 font-[family-name:var(--font-display)] text-3xl tracking-tight">
                 One pick with a reason
               </h2>
-            </div>
-          </div>
-          <p className="mt-6 text-lg leading-8 text-foreground/90">{data.nextWatch}</p>
-        </Card>
+              <p className="mt-6 text-lg leading-8 text-foreground/90">{data.nextWatch}</p>
+            </Card>
+          </motion.div>
+        </motion.div>
       </motion.section>
     </motion.div>
   )

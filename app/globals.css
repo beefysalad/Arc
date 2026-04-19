@@ -48,9 +48,9 @@
 }
 
 :root {
-  --font-geist-sans: 'Avenir Next', 'Segoe UI', 'Helvetica Neue', sans-serif;
+  --font-geist-sans: 'Poppins', 'Avenir Next', 'Segoe UI', 'Helvetica Neue', sans-serif;
   --font-geist-mono: 'SFMono-Regular', 'SF Mono', 'JetBrains Mono', monospace;
-  --font-display: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', serif;
+  --font-display: 'Poppins', 'Avenir Next', 'Segoe UI', 'Helvetica Neue', sans-serif;
   --radius: 1rem;
   --background: oklch(0 0 0);
   --foreground: oklch(0.95 0 0);
@@ -130,7 +130,16 @@
 
   body {
     min-height: 100vh;
-    background: var(--background);
+    background:
+      linear-gradient(to bottom, rgba(250, 204, 21, 0.06), transparent 140px),
+      linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      var(--background);
+    background-size:
+      100% 100%,
+      32px 32px,
+      32px 32px,
+      auto;
     @apply text-foreground antialiased;
   }
 
@@ -142,14 +151,24 @@
 
 @layer components {
   .arc-panel {
-    @apply rounded-[2rem] border border-primary/20 bg-black/40 shadow-none backdrop-blur-xl;
+    @apply rounded-[1.75rem] border border-white/12 bg-[#111111] backdrop-blur-xl;
+    box-shadow:
+      0 20px 50px rgba(0, 0, 0, 0.42),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
   }
 
   .arc-surface {
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.38);
   }
 
   .arc-grid {
-    background-image: none;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .arc-chip {
+    @apply inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.24em] text-primary;
   }
 }

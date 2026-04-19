@@ -20,18 +20,18 @@ export function DashboardNav() {
   const pathname = usePathname()
 
   return (
-    <header className="sticky top-0 z-30 border-b border-white/10 bg-background/75 backdrop-blur-2xl">
+    <header className="sticky top-0 z-30 border-b border-white/10 bg-background/90 backdrop-blur-2xl">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-6">
           <Link href="/dashboard" className="group flex items-center gap-3">
-            <div className="flex size-11 items-center justify-center rounded-2xl border border-primary/30 bg-primary/12 shadow-[0_0_0_1px_rgba(250,204,21,0.08)]">
-              <Clapperboard className="size-5 text-primary" />
+            <div className="flex size-12 items-center justify-center rounded-2xl border border-primary/40 bg-primary text-primary-foreground shadow-[0_10px_24px_rgba(250,204,21,0.18)]">
+              <Clapperboard className="size-5" />
             </div>
             <div>
-              <p className="font-[family-name:var(--font-display)] text-2xl leading-none tracking-tight">
+              <p className="font-[family-name:var(--font-display)] text-3xl leading-none tracking-tight">
                 Arc
               </p>
-              <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+              <p className="text-[10px] uppercase tracking-[0.36em] text-muted-foreground">
                 Movie companion
               </p>
             </div>
@@ -54,10 +54,10 @@ export function DashboardNav() {
                 <Link
                   href={item.href}
                   className={cn(
-                    'flex items-center gap-2 rounded-full px-4 py-2 text-sm whitespace-nowrap transition-all',
+                    'flex items-center gap-2 rounded-full px-4 py-2.5 text-sm whitespace-nowrap transition-all',
                     active
-                      ? 'bg-primary text-primary-foreground shadow-[0_12px_28px_rgba(250,204,21,0.18)]'
-                      : 'border border-white/10 bg-white/5 text-muted-foreground hover:bg-white/10 hover:text-foreground'
+                      ? 'border border-primary/50 bg-primary text-primary-foreground shadow-[0_12px_28px_rgba(250,204,21,0.18)]'
+                      : 'border border-white/10 bg-[#111111] text-muted-foreground hover:border-primary/30 hover:text-foreground'
                   )}
                 >
                   <item.icon className="size-4" />
