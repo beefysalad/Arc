@@ -43,9 +43,8 @@ export function AuthModalLauncher({ mode }: AuthModalLauncherProps) {
       : 'Opening Clerk sign-up modal. Use Google or email to create your account.'
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-white px-4 selection:bg-zinc-900 selection:text-white dark:bg-neutral-950 dark:selection:bg-neutral-50 dark:selection:text-neutral-900">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-4 selection:bg-primary selection:text-black">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000005_1px,transparent_1px),linear-gradient(to_bottom,#00000005_1px,transparent_1px)] bg-[size:40px_40px] dark:bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)]" />
       </div>
 
       <div className="animate-in fade-in slide-in-from-bottom-4 relative w-full max-w-[440px] duration-1000">
@@ -63,7 +62,7 @@ export function AuthModalLauncher({ mode }: AuthModalLauncherProps) {
           </p>
         </div>
 
-        <div className="overflow-hidden rounded-3xl border border-zinc-200 bg-white/50 p-8 text-center shadow-2xl shadow-zinc-200/50 backdrop-blur-xl dark:border-neutral-800 dark:bg-neutral-900/50 dark:shadow-none">
+        <div className="arc-panel p-8 text-center">
           <p className="mb-6 text-sm text-zinc-600 dark:text-neutral-400">
             If the modal did not open automatically, launch it again below.
           </p>

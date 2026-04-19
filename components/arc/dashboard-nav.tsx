@@ -24,8 +24,8 @@ export function DashboardNav() {
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-6">
           <Link href="/dashboard" className="group flex items-center gap-3">
-            <div className="flex size-11 items-center justify-center rounded-2xl border border-white/10 bg-gradient-to-br from-orange-400/25 via-rose-400/15 to-sky-400/20 shadow-[0_12px_32px_rgba(251,146,60,0.18)]">
-              <Clapperboard className="size-5 text-foreground" />
+            <div className="flex size-11 items-center justify-center rounded-2xl border border-primary/30 bg-primary/12 shadow-[0_0_0_1px_rgba(250,204,21,0.08)]">
+              <Clapperboard className="size-5 text-primary" />
             </div>
             <div>
               <p className="font-[family-name:var(--font-display)] text-2xl leading-none tracking-tight">
@@ -56,7 +56,7 @@ export function DashboardNav() {
                   className={cn(
                     'flex items-center gap-2 rounded-full px-4 py-2 text-sm whitespace-nowrap transition-all',
                     active
-                      ? 'bg-foreground text-background shadow-[0_18px_38px_rgba(15,23,42,0.18)]'
+                      ? 'bg-primary text-primary-foreground shadow-[0_12px_28px_rgba(250,204,21,0.18)]'
                       : 'border border-white/10 bg-white/5 text-muted-foreground hover:bg-white/10 hover:text-foreground'
                   )}
                 >

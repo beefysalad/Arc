@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Movie" ALTER COLUMN "userRating" SET DATA TYPE DOUBLE PRECISION;

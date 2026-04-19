@@ -24,11 +24,10 @@ export function PageIntro({
     <motion.section
       variants={fadeUp}
       className={cn(
-        'arc-panel arc-grid relative overflow-hidden p-6 sm:p-8',
+        'arc-panel relative overflow-hidden p-6 sm:p-8',
         className
       )}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(251,146,60,0.16),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(56,189,248,0.16),transparent_26%)]" />
       <div className="relative flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
         <div className="max-w-3xl">
           <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground">

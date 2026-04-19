@@ -56,8 +56,8 @@ export function InsightsDashboard() {
       <motion.section variants={fadeUp}>
         <Card className="arc-panel p-6 sm:p-7">
           <div className="flex items-center gap-3">
-            <div className="flex size-11 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-400/20 to-rose-400/15">
-              <MessageSquareQuote className="size-5" />
+            <div className="flex size-11 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10">
+              <MessageSquareQuote className="size-5 text-primary" />
             </div>
             <div>
               <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Your taste in a nutshell</p>
@@ -72,10 +72,10 @@ export function InsightsDashboard() {
 
       <motion.section variants={stagger} className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
         <motion.div variants={fadeUp}>
-          <Card className="arc-panel h-full bg-[radial-gradient(circle_at_top_right,rgba(56,189,248,0.16),transparent_32%),linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-6">
+          <Card className="arc-panel h-full p-6">
             <div className="flex items-center gap-3">
-              <div className="flex size-11 items-center justify-center rounded-2xl bg-white/10">
-                <ScanSearch className="size-5" />
+              <div className="flex size-11 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10">
+                <ScanSearch className="size-5 text-primary" />
               </div>
               <div>
                 <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Blind spot</p>
@@ -92,13 +92,13 @@ export function InsightsDashboard() {
           {data.patterns.map((pattern, index) => (
             <motion.div key={pattern} variants={fadeUp} whileHover={{ y: -6 }}>
               <Card className="arc-panel h-full p-5">
-                <div className="flex size-10 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-400/18 to-sky-400/18">
+                <div className="flex size-10 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10">
                   {index === 0 ? (
-                    <Sparkles className="size-4" />
+                    <Sparkles className="size-4 text-primary" />
                   ) : index === 1 ? (
-                    <Lightbulb className="size-4" />
+                    <Lightbulb className="size-4 text-primary" />
                   ) : (
-                    <Compass className="size-4" />
+                    <Compass className="size-4 text-primary" />
                   )}
                 </div>
                 <p className="mt-5 text-base leading-7">{pattern}</p>
@@ -111,8 +111,8 @@ export function InsightsDashboard() {
       <motion.section variants={fadeUp}>
         <Card className="arc-panel p-6 sm:p-7">
           <div className="flex items-center gap-3">
-            <div className="flex size-11 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-400/20 to-sky-400/20">
-              <Compass className="size-5" />
+            <div className="flex size-11 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10">
+              <Compass className="size-5 text-primary" />
             </div>
             <div>
               <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Next watch</p>

@@ -30,7 +30,7 @@ import { movieSearchSchema } from '@/lib/validations/arc'
 const movieFormSchema = z.object({
   userRating: z.preprocess(
     (value) => (value === '' || value === null || value === undefined ? null : Number(value)),
-    z.number().int().min(1).max(10).nullable()
+    z.number().min(1).max(10).nullable()
   ),
   note: z.preprocess(
     (value) => (typeof value === 'string' && value.trim().length === 0 ? null : value),
@@ -225,7 +225,9 @@ export function MovieDashboard() {
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                   <div className="absolute right-4 bottom-4 rounded-full border border-white/15 bg-black/45 px-3 py-1 text-xs text-white backdrop-blur">
-                    {movie.userRating ? `${movie.userRating}/10` : 'Unrated'}
+                    {typeof movie.userRating === 'number'
+                      ? `${formatRating(movie.userRating)}/10`
+                      : 'Unrated'}
                   </div>
                 </div>
 
@@ -464,7 +466,14 @@ export function MovieDashboard() {
                     <div className="grid gap-4 p-5 sm:p-6">
                       <div className="grid gap-3 sm:grid-cols-2">
                         <DetailStat label="TMDB score" value={selectedMovie.tmdbRating?.toFixed(1) ?? 'N/A'} />
-                        <DetailStat label="Your score" value={selectedMovie.userRating?.toString() ?? 'Unrated'} />
+                        <DetailStat
+                          label="Your score"
+                          value={
+                            typeof selectedMovie.userRating === 'number'
+                              ? formatRating(selectedMovie.userRating)
+                              : 'Unrated'
+                          }
+                        />
                       </div>
 
                       <div>
@@ -505,6 +514,8 @@ export function MovieDashboard() {
                       type="number"
                       min={1}
                       max={10}
+                      step="0.5"
+                      inputMode="decimal"
                       className="h-11 rounded-2xl border-white/10 bg-white/8"
                       {...form.register('userRating')}
                     />
@@ -578,4 +589,8 @@ function DetailStat({ label, value }: { label: string; value: string }) {
       <p className="mt-2 text-2xl font-semibold">{value}</p>
     </div>
   )
+}
+
+function formatRating(value: number) {
+  return Number.isInteger(value) ? value.toString() : value.toFixed(1)
 }

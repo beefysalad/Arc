@@ -74,12 +74,11 @@ export function HomeLanding({ isSignedIn }: { isSignedIn: boolean }) {
             variants={item}
             className="arc-panel arc-grid relative overflow-hidden p-7 sm:p-9"
           >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(251,146,60,0.18),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(56,189,248,0.14),transparent_26%)]" />
             <div className="relative">
               <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/7 px-4 py-1.5 text-xs uppercase tracking-[0.35em] text-muted-foreground">
                 <Clapperboard className="size-3.5" />
                 Arc
-                <span className="h-1 w-1 rounded-full bg-orange-300" />
+                <span className="h-1 w-1 rounded-full bg-primary" />
                 Movie tracking
               </div>
 
@@ -109,7 +108,7 @@ export function HomeLanding({ isSignedIn }: { isSignedIn: boolean }) {
 
           <motion.div variants={item} className="grid gap-6">
             <div className="arc-panel relative overflow-hidden p-6">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(251,191,36,0.14),transparent_32%),radial-gradient(circle_at_bottom_left,rgba(244,63,94,0.1),transparent_26%)]" />
+              <div className="absolute inset-x-0 top-0 h-px bg-primary/30" />
               <div className="relative">
                 <p className="text-xs uppercase tracking-[0.32em] text-muted-foreground">
                   How it flows
@@ -121,7 +120,7 @@ export function HomeLanding({ isSignedIn }: { isSignedIn: boolean }) {
                       variants={item}
                       className="flex gap-4 rounded-[1.5rem] border border-white/10 bg-white/6 p-4"
                     >
-                      <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-foreground text-sm font-medium text-background">
+                      <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-medium text-primary-foreground">
                         {index + 1}
                       </div>
                       <p className="text-sm leading-7 text-foreground/90">{step}</p>
@@ -143,8 +142,8 @@ export function HomeLanding({ isSignedIn }: { isSignedIn: boolean }) {
                   Digests, stats, and insight pages keep your taste legible over time.
                 </p>
               </div>
-              <div className="flex size-14 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-400/20 to-sky-400/20">
-                <Telescope className="size-6 text-foreground" />
+              <div className="flex size-14 items-center justify-center rounded-2xl border border-primary/30 bg-primary/10">
+                <Telescope className="size-6 text-primary" />
               </div>
             </motion.div>
           </motion.div>
@@ -158,8 +157,8 @@ export function HomeLanding({ isSignedIn }: { isSignedIn: boolean }) {
               whileHover={{ y: -6 }}
               className="arc-panel p-6"
             >
-              <div className="flex size-11 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-400/20 via-rose-400/10 to-sky-400/20">
-                <feature.icon className="size-5 text-foreground" />
+              <div className="flex size-11 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10">
+                <feature.icon className="size-5 text-primary" />
               </div>
               <h2 className="mt-5 font-[family-name:var(--font-display)] text-2xl tracking-tight">
                 {feature.title}

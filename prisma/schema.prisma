@@ -35,7 +35,7 @@ model Movie {
   genres      String[]
   runtime     Int?
   tmdbRating  Float?
-  userRating  Int?
+  userRating  Float?
   note        String?
   watchedAt   DateTime      @default(now())
   createdAt   DateTime      @default(now())

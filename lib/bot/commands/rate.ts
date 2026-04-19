@@ -6,9 +6,9 @@ import type { CommandHandler } from '@/lib/bot/commands/types'
 import { requireLinkedTelegramUser } from '@/lib/bot/commands/utils'
 
 export const handleRate: CommandHandler = async (chatId, args, prisma) => {
-  const score = Number.parseInt(args.parts[0] ?? '', 10)
+  const score = Number.parseFloat(args.parts[0] ?? '')
 
-  if (!Number.isInteger(score) || score < 1 || score > 10) {
+  if (Number.isNaN(score) || score < 1 || score > 10) {
     await sendMessage(chatId, 'Usage: /rate <score between 1 and 10>')
     return
   }

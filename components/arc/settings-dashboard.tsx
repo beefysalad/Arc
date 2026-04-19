@@ -81,8 +81,8 @@ export function SettingsDashboard() {
         <motion.div variants={fadeUp}>
           <Card className="arc-panel h-full p-6">
             <div className="flex items-center gap-3">
-              <div className="flex size-11 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-400/20 to-rose-400/15">
-                <ShieldCheck className="size-5" />
+              <div className="flex size-11 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10">
+                <ShieldCheck className="size-5 text-primary" />
               </div>
               <div>
                 <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Connection status</p>

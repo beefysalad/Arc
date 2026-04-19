@@ -6,7 +6,7 @@ export const connectTelegramSchema = z.object({
 
 export const updateMovieSchema = z
   .object({
-    userRating: z.number().int().min(1).max(10).nullable().optional(),
+    userRating: z.number().min(1).max(10).nullable().optional(),
     note: z.string().trim().max(500).nullable().optional(),
   })
   .refine((value) => value.userRating !== undefined || value.note !== undefined, {

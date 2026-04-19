@@ -111,8 +111,8 @@ export function StatsDashboard() {
         <motion.div variants={fadeUp}>
           <Card className="arc-panel p-6">
             <div className="flex items-center gap-3">
-              <div className="flex size-11 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-400/20 to-sky-400/20">
-                <VenetianMask className="size-5" />
+              <div className="flex size-11 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10">
+                <VenetianMask className="size-5 text-primary" />
               </div>
               <div>
                 <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Top genres</p>
@@ -131,7 +131,7 @@ export function StatsDashboard() {
                   </div>
                   <div className="h-3 overflow-hidden rounded-full bg-white/8">
                     <div
-                      className="h-full rounded-full bg-gradient-to-r from-orange-400 via-rose-300 to-sky-400"
+                      className="h-full rounded-full bg-primary"
                       style={{ width: `${Math.min(100, genre.weight * 10)}%` }}
                     />
                   </div>
