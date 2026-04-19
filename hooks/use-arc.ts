@@ -7,6 +7,7 @@ import type {
   DashboardStats,
   InsightResponse,
   MovieListItem,
+  MovieSearchResult,
   TelegramLinkStatus,
 } from '@/lib/arc/types'
 
@@ -26,6 +27,38 @@ export function useMovies(filters: { genre?: string; sort: 'date' | 'rating' }) 
   })
 }
 
+export function useMovieSearch(query: string) {
+  return useQuery({
+    queryKey: ['movie-search', query],
+    queryFn: async () => {
+      const response = await api.get<MovieSearchResult[]>('/movies/search', {
+        params: { query },
+      })
+
+      return response.data
+    },
+    enabled: query.trim().length > 0,
+  })
+}
+
+export function useCreateMovie() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async (tmdbId: number) => {
+      const response = await api.post<MovieListItem>('/movies', { tmdbId })
+      return response.data
+    },
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['movies'] }),
+        queryClient.invalidateQueries({ queryKey: ['stats'] }),
+        queryClient.invalidateQueries({ queryKey: ['insights'] }),
+      ])
+    },
+  })
+}
+
 export function useUpdateMovie() {
   const queryClient = useQueryClient()
 
@@ -40,6 +73,24 @@ export function useUpdateMovie() {
         ...(input.note !== undefined ? { note: input.note } : {}),
       })
 
+      return response.data
+    },
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['movies'] }),
+        queryClient.invalidateQueries({ queryKey: ['stats'] }),
+        queryClient.invalidateQueries({ queryKey: ['insights'] }),
+      ])
+    },
+  })
+}
+
+export function useDeleteMovie() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async (id: string) => {
+      const response = await api.delete<{ success: true }>(`/movies/${id}`)
       return response.data
     },
     onSuccess: async () => {

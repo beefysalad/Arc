@@ -18,3 +18,10 @@ export const movieFilterSchema = z.object({
   sort: z.enum(['date', 'rating']).optional().default('date'),
 })
 
+export const movieSearchSchema = z.object({
+  query: z.string().trim().min(1, 'Enter a movie title.').max(120),
+})
+
+export const createMovieSchema = z.object({
+  tmdbId: z.number().int().positive(),
+})

@@ -40,3 +40,32 @@ export async function PATCH(
 
   return NextResponse.json(serializeMovie(updated))
 }
+
+export async function DELETE(
+  _request: Request,
+  context: { params: Promise<{ id: string }> }
+) {
+  const { userId } = await auth()
+
+  if (!userId) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  const { id } = await context.params
+
+  const movie = await prisma.movie.findFirst({
+    where: { id, userId },
+  })
+
+  if (!movie) {
+    return NextResponse.json({ error: 'Movie not found' }, { status: 404 })
+  }
+
+  await prisma.movie.delete({
+    where: { id },
+  })
+
+  await refreshTasteProfile(userId)
+
+  return NextResponse.json({ success: true })
+}

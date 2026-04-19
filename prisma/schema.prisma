@@ -13,13 +13,6 @@ datasource db {
   provider = "postgresql"
 }
 
-model Count {
-  id         Int      @id @default(autoincrement())
-  key        String   @unique @default("global_counter")
-  value      Int      @default(0)
-  modifiedAt DateTime @updatedAt
-}
-
 model User {
   id             String    @id @default(cuid())
   clerkId        String?   @unique
@@ -33,20 +26,20 @@ model User {
 }
 
 model Movie {
-  id         String        @id @default(cuid())
-  userId     String
-  tmdbId     Int
-  title      String
+  id          String        @id @default(cuid())
+  userId      String
+  tmdbId      Int
+  title       String
   releaseYear Int?
-  posterPath String?
-  genres     String[]
-  runtime    Int?
-  tmdbRating Float?
-  userRating Int?
-  note       String?
-  watchedAt  DateTime      @default(now())
-  createdAt  DateTime      @default(now())
-  user       TelegramUser? @relation(fields: [userId], references: [clerkUserId])
+  posterPath  String?
+  genres      String[]
+  runtime     Int?
+  tmdbRating  Float?
+  userRating  Int?
+  note        String?
+  watchedAt   DateTime      @default(now())
+  createdAt   DateTime      @default(now())
+  user        TelegramUser? @relation(fields: [userId], references: [clerkUserId])
 
   @@index([userId, watchedAt(sort: Desc)])
   @@index([userId, tmdbId])
@@ -73,12 +66,12 @@ model PendingLink {
 }
 
 model TasteProfile {
-  id            String   @id @default(cuid())
-  clerkUserId   String   @unique
+  id            String    @id @default(cuid())
+  clerkUserId   String    @unique
   topGenres     Json
   avgRating     Float?
-  totalWatched  Int      @default(0)
+  totalWatched  Int       @default(0)
   lastInsight   Json?
   lastInsightAt DateTime?
-  updatedAt     DateTime @updatedAt
+  updatedAt     DateTime  @updatedAt
 }

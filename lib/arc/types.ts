@@ -13,6 +13,17 @@ export type MovieListItem = {
   createdAt: string
 }
 
+export type MovieSearchResult = {
+  tmdbId: number
+  title: string
+  releaseYear: number | null
+  posterPath: string | null
+  genres: string[]
+  runtime: number | null
+  tmdbRating: number | null
+  overview: string
+}
+
 export type GenreStat = {
   genre: string
   count: number
@@ -57,4 +68,3 @@ export type TasteProfileSnapshot = {
   avgRating: number | null
   totalWatched: number
 }
-

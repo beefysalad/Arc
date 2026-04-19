@@ -73,7 +73,29 @@ async function getMovieDetails(movieId: number) {
   }>(`/movie/${movieId}`, new URLSearchParams({ language: 'en-US' }))
 }
 
-export async function searchMovie(query: string): Promise<TmdbMovie | null> {
+function normalizeMovie(movie: Awaited<ReturnType<typeof getMovieDetails>>): TmdbMovie {
+  return {
+    id: movie.id,
+    title: movie.title,
+    year: movie.release_date ? Number.parseInt(movie.release_date.slice(0, 4), 10) : null,
+    overview: movie.overview ?? '',
+    posterPath: movie.poster_path ?? null,
+    genres: movie.genres,
+    runtime: movie.runtime ?? null,
+    tmdbRating: movie.vote_average ? Math.round(movie.vote_average * 10) / 10 : null,
+  }
+}
+
+export async function getMovieById(movieId: number): Promise<TmdbMovie | null> {
+  try {
+    const movie = await getMovieDetails(movieId)
+    return normalizeMovie(movie)
+  } catch {
+    return null
+  }
+}
+
+export async function searchMovies(query: string, limit = 5): Promise<TmdbMovie[]> {
   const searchResponse = await tmdbFetch<{
     results: Array<{ id: number }>
   }>(
@@ -86,24 +108,19 @@ export async function searchMovie(query: string): Promise<TmdbMovie | null> {
     })
   )
 
-  const firstResult = searchResponse.results[0]
+  const results = searchResponse.results.slice(0, limit)
 
-  if (!firstResult) {
-    return null
+  if (results.length === 0) {
+    return []
   }
 
-  const movie = await getMovieDetails(firstResult.id)
+  const movies = await Promise.all(results.map((result) => getMovieById(result.id)))
+  return movies.filter((movie): movie is TmdbMovie => movie !== null)
+}
 
-  return {
-    id: movie.id,
-    title: movie.title,
-    year: movie.release_date ? Number.parseInt(movie.release_date.slice(0, 4), 10) : null,
-    overview: movie.overview ?? '',
-    posterPath: movie.poster_path ?? null,
-    genres: movie.genres,
-    runtime: movie.runtime ?? null,
-    tmdbRating: movie.vote_average ? Math.round(movie.vote_average * 10) / 10 : null,
-  }
+export async function searchMovie(query: string): Promise<TmdbMovie | null> {
+  const [firstResult] = await searchMovies(query, 1)
+  return firstResult ?? null
 }
 
 export async function discoverMovies(options: DiscoverOptions): Promise<TmdbMovie[]> {

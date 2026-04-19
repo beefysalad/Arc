@@ -6,9 +6,11 @@ import { handleInsight } from '@/lib/bot/commands/insight'
 import { handleLog } from '@/lib/bot/commands/log'
 import { handleMood } from '@/lib/bot/commands/mood'
 import { handleRate } from '@/lib/bot/commands/rate'
+import { handleSearch } from '@/lib/bot/commands/search'
 import { handleStart } from '@/lib/bot/commands/start'
 import { handleStats } from '@/lib/bot/commands/stats'
 import { handleSuggest } from '@/lib/bot/commands/suggest'
+import { handleUndo } from '@/lib/bot/commands/undo'
 
 type TelegramMessage = {
   chat?: {
@@ -24,8 +26,10 @@ type TelegramMessage = {
 
 const commandHandlers: Record<string, CommandHandler> = {
   '/start': handleStart,
+  '/search': handleSearch,
   '/log': handleLog,
   '/rate': handleRate,
+  '/undo': handleUndo,
   '/suggest': handleSuggest,
   '/mood': handleMood,
   '/stats': handleStats,
@@ -57,7 +61,7 @@ export const telegramService = {
     if (!handler) {
       await sendTelegramMessage({
         chatId,
-        text: 'Arc knows /start, /log, /rate, /suggest, /mood, /stats, and /insight.',
+        text: 'Arc knows /start, /search, /log, /rate, /undo, /suggest, /mood, /stats, and /insight.',
       })
       return
     }
@@ -84,4 +88,3 @@ export const telegramService = {
     }
   },
 }
-
